@@ -46,12 +46,12 @@
                     <table id="reportTable" class="min-w-full">
                         <thead>
                             <tr class="bg-cream/50">
-                                <th class="px-8 py-5 text-left text-[10px] font-black text-tan uppercase tracking-[0.2em] border-b-2 border-cream">Profil Pengunjung</th>
-                                <th class="px-8 py-5 text-left text-[10px] font-black text-tan uppercase tracking-[0.2em] border-b-2 border-cream">Asal Instansi</th>
-                                <th class="px-8 py-5 text-left text-[10px] font-black text-tan uppercase tracking-[0.2em] border-b-2 border-cream">Waktu Kunjungan</th>
-                                <th class="px-8 py-5 text-center text-[10px] font-black text-tan uppercase tracking-[0.2em] border-b-2 border-cream">Status</th>
-                                <th class="px-8 py-5 text-center text-[10px] font-black text-tan uppercase tracking-[0.2em] border-b-2 border-cream">Durasi</th>
-                                <th class="px-8 py-5 text-left text-[10px] font-black text-tan uppercase tracking-[0.2em] border-b-2 border-cream">Keterangan / Tujuan</th>
+                                <th class="px-8 py-5 text-left text-[10px] font-black text-primary-red uppercase tracking-[0.2em] border-b-2 border-cream">Profil Pengunjung</th>
+                                <th class="px-8 py-5 text-left text-[10px] font-black text-primary-red uppercase tracking-[0.2em] border-b-2 border-cream">Asal Instansi</th>
+                                <th class="px-8 py-5 text-left text-[10px] font-black text-primary-red uppercase tracking-[0.2em] border-b-2 border-cream">Waktu Kunjungan</th>
+                                <th class="px-8 py-5 text-center text-[10px] font-black text-primary-red uppercase tracking-[0.2em] border-b-2 border-cream">Status</th>
+                                <th class="px-8 py-5 text-center text-[10px] font-black text-primary-red uppercase tracking-[0.2em] border-b-2 border-cream">Durasi</th>
+                                <th class="px-8 py-5 text-left text-[10px] font-black text-primary-red uppercase tracking-[0.2em] border-b-2 border-cream">Keterangan / Tujuan</th>
                             </tr>
                         </thead>
                         <tbody class="divide-y divide-cream">
