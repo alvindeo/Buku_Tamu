@@ -130,19 +130,27 @@
         function exportToExcel() {
             let table = document.getElementById("reportTable");
             let rows = Array.from(table.rows);
-            let csvContent = "data:text/csv;charset=utf-8,";
+            
+            // Menggunakan BOM (Byte Order Mark) agar Excel mendeteksi UTF-8
+            // dan instruksi 'sep=,' agar Excel otomatis membagi kolom berdasarkan koma
+            let csvContent = "\uFEFFsep=,\r\n";
 
             rows.forEach(row => {
-                let rowData = Array.from(row.cells).map(cell => '"' + cell.innerText.replace(/\n/g, ' ').trim() + '"').join(",");
+                let rowData = Array.from(row.cells).map(cell => {
+                    let text = cell.innerText.replace(/\n/g, ' ').replace(/"/g, '""').trim();
+                    return '"' + text + '"';
+                }).join(",");
                 csvContent += rowData + "\r\n";
             });
 
-            let encodedUri = encodeURI(csvContent);
+            let blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            let url = URL.createObjectURL(blob);
             let link = document.createElement("a");
-            link.setAttribute("href", encodedUri);
+            link.setAttribute("href", url);
             link.setAttribute("download", "Laporan_Kunjungan_{{ strtoupper($periode) }}_{{ date('dmy') }}.csv");
             document.body.appendChild(link);
             link.click();
+            document.body.removeChild(link);
         }
     </script>
 </x-app-layout>

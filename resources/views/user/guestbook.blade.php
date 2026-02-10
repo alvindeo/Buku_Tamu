@@ -6,6 +6,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Buku Kunjungan Tamu</title>
     
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="{{ asset('logo/logo_aja.png') }}">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,10 +49,8 @@
             <div class="glass-card border-2 border-tan/30 rounded-[3.5rem] shadow-[0_30px_70px_rgba(109,35,35,0.12)] p-10 md:p-16 transition-all duration-500 hover:shadow-[0_40px_80px_rgba(109,35,35,0.15)]">
                 
                 <div class="text-center mb-12">
-                    <div class="inline-flex p-6 bg-primary-red rounded-[2.5rem] shadow-2xl shadow-primary-red/30 mb-8 transform hover:scale-105 transition-transform duration-500 cursor-pointer">
-                        <svg class="w-14 h-14 text-cream" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
-                        </svg>
+                    <div class="inline-flex mb-8">
+                        <img src="{{ asset('logo/logo_aja.png') }}" alt="Logo Buku Tamu" class="w-32 h-auto mix-blend-multiply">
                     </div>
                     <h1 class="text-5xl font-black text-deep-maroon mb-4 tracking-tighter">Buku Tamu</h1>
                     <div class="flex items-center justify-center gap-4">
