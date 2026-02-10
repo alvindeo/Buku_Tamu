@@ -14,9 +14,6 @@
     <div class="py-8 bg-cream min-h-screen">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             
-            <!-- Urgent Notification Alert -->
-            <div id="urgent-container"></div>
-
             <!-- Stats Overview -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
                 <!-- Total Visitors -->
@@ -111,9 +108,6 @@
                         </thead>
                         <tbody class="divide-y divide-cream">
                             @foreach($tamuDiDalam as $tamu)
-                            @php 
-                                $isUrgent = (stripos($tamu->keperluan, 'masalah') !== false || stripos($tamu->keperluan, 'urgent') !== false || stripos($tamu->keperluan, 'komplain') !== false);
-                            @endphp
                             <tr class="hover:bg-cream/20 transition-colors">
                                 <td class="px-8 py-6">
                                     <div class="font-black text-deep-maroon text-lg">{{ $tamu->pengunjung->nama }}</div>
@@ -127,7 +121,7 @@
                                 </td>
                                 <td class="px-8 py-6">
                                     <div class="flex justify-center">
-                                        <span class="px-6 py-2 rounded-2xl text-xs font-black leading-relaxed max-w-[200px] text-center {{ $isUrgent ? 'bg-primary-red text-cream animate-pulse shadow-lg shadow-primary-red/30' : 'bg-tan/20 text-deep-maroon border border-tan/50' }}">
+                                        <span class="px-6 py-2 rounded-2xl text-xs font-black leading-relaxed max-w-[200px] text-center bg-tan/20 text-deep-maroon border border-tan/50">
                                             {{ strtoupper($tamu->keperluan) }}
                                         </span>
                                     </div>
@@ -211,39 +205,9 @@
                 plugins: { legend: { position: 'bottom', labels: { padding: 25, color: '#6D2323', font: { weight: 'black', size: 10 } } } }
             }
         });
-
-        // Urgent Alert System
-        function checkUrgent() {
-            const urgentContainer = document.getElementById('urgent-container');
-            let hasUrgent = false;
-            let msg = '';
-
-            @foreach($tamuDiDalam as $tamu)
-                @if(stripos($tamu->keperluan, 'masalah') !== false || stripos($tamu->keperluan, 'urgent') !== false || stripos($tamu->keperluan, 'komplain') !== false)
-                    hasUrgent = true;
-                    msg = '{{ $tamu->pengunjung->nama }} - {{ $tamu->keperluan }}';
-                @endif
-            @endforeach
-
-            if (hasUrgent) {
-                urgentContainer.innerHTML = `
-                    <div class="mb-8 p-8 bg-primary-red rounded-[40px] shadow-2xl shadow-primary-red/40 flex items-center justify-between border-4 border-deep-maroon animate-pulse">
-                        <div class="flex items-center gap-6 text-cream">
-                            <div class="p-4 bg-white/20 rounded-3xl">
-                                <svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-black text-2xl uppercase tracking-tighter">PROTOKOL PRIORITAS!</h4>
-                                <p class="font-bold text-lg opacity-90 italic">${msg}</p>
-                            </div>
-                        </div>
-                        <button onclick="this.parentElement.remove()" class="text-cream/50 hover:text-cream transition-all p-2 bg-black/20 rounded-full">
-                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M6 18L18 6M6 6l12 12"></path></svg>
-                        </button>
-                    </div>
-                `;
-            }
-        }
-        checkUrgent();
+        // Auto-refresh every 30 seconds to keep data realtime
+        setTimeout(() => {
+            location.reload();
+        }, 30000);
     </script>
 </x-app-layout>

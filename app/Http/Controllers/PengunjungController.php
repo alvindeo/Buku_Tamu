@@ -47,6 +47,7 @@ class PengunjungController extends Controller
             ]
         );
 
+        // Create Kunjungan
         $kunjungan = Kunjungan::create([
             'id_pengunjung' => $pengunjung->id_pengunjung,
             'keperluan' => $request->keperluan,
@@ -54,21 +55,40 @@ class PengunjungController extends Controller
             'status' => 'IN'
         ]);
 
-        // Logic check for urgent keywords
-        $urgentKeywords = ['masalah', 'urgent', 'komplain'];
-        $isUrgent = false;
+        // Smart Priority Detection
+        $urgentKeywords = ['urgent', 'mendesak', 'bahaya', 'komplain', 'darurat'];
+        $vipKeywords = ['vip', 'penting', 'direktur', 'pimpinan'];
+        
+        $urgencyLevel = null;
+        $alertMessage = "";
+
+        // Check for Dangerous/Urgent keywords
         foreach ($urgentKeywords as $word) {
             if (stripos($request->keperluan, $word) !== false) {
-                $isUrgent = true;
+                $urgencyLevel = 'danger';
+                $alertMessage = "Ada tamu dengan keperluan mendesak/masalah";
                 break;
             }
         }
 
-        if ($isUrgent) {
-            // In a real app, you'd use Pusher/WebSockets here.
-            // For now, we can flag this in a table or session.
-            // I'll add a 'is_urgent' column to data_kunjungan migration if I can, 
-            // but for now I'll just assume the admin dashboard will filter for these keywords.
+        // Check for VIP keywords if not already dangerous
+        if (!$urgencyLevel) {
+            foreach ($vipKeywords as $word) {
+                if (stripos($request->keperluan, $word) !== false) {
+                    $urgencyLevel = 'priority';
+                    $alertMessage = "Ada tamu penting/atasan berkunjung";
+                    break;
+                }
+            }
+        }
+
+        if ($urgencyLevel) {
+            \App\Models\PriorityNotification::create([
+                'id_kunjungan' => $kunjungan->id_kunjungan,
+                'message' => $alertMessage,
+                'urgency_level' => $urgencyLevel,
+                'is_read' => false
+            ]);
         }
 
         return redirect()->back()->with('success', 'Selamat datang ' . $pengunjung->nama . '!');

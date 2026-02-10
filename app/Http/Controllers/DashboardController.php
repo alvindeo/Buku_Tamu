@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Kunjungan;
 use App\Models\Pengunjung;
 use Illuminate\Support\Facades\DB;
+use App\Models\PriorityNotification;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -70,6 +71,13 @@ class DashboardController extends Controller
         $reports = $query->orderBy('tanggal_jam_masuk', 'desc')->get();
 
         return view('admin.reports', compact('reports', 'periode'));
+    }
+
+    public function dismissNotification($id)
+    {
+        $notif = PriorityNotification::findOrFail($id);
+        $notif->update(['is_read' => true]);
+        return response()->json(['success' => true]);
     }
 
     public function updateStatus(Request $request, $id)
